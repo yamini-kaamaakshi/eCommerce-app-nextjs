@@ -28,6 +28,7 @@ export default function ProductPage() {
             </div>
         );
     }
+    const remainingProducts = categoryProducts.filter((p) => p.id !== productId);
 
     return (
         <div className="container mx-auto py-10 px-4">
@@ -50,6 +51,29 @@ export default function ProductPage() {
                     </button>
                 </div>
             </div>
+            {/* Remaining Products Section */}
+            {remainingProducts.length > 0 && (
+                <div className="mt-8">
+                    <h2 className="text-xl font-semibold mb-4">
+                        Other {category} Products
+                    </h2>
+                    <div className="flex overflow-x-auto space-x-4 pb-4">
+                        {remainingProducts.map((p) => (
+                            <Link key={p.id} href={`/category/${category}/${p.id}`}>
+                                <div className="min-w-[300px] border rounded-lg shadow-md p-4 cursor-pointer hover:shadow-xl transition">
+                                    <img
+                                        src={p.image}
+                                        alt={p.name}
+                                        className="w-full h-48 object-cover rounded-md"
+                                    />
+                                    <h3 className="text-lg font-semibold mt-2">{p.name}</h3>
+                                    <p className="text-gray-700">₹{p.price}</p>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
