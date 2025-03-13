@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Import router
 import { useCartStore } from "@/store/cartStore";
 
 const CartPage = () => {
-    const { cart, removeFromCart, updateQuantity, placeOrder } = useCartStore();
+    const router = useRouter();
+    const { cart, removeFromCart, updateQuantity } = useCartStore();
     const hydrateStore = useCartStore((state) => state.hydrateStore);
     const [mounted, setMounted] = useState(false);
 
@@ -68,8 +70,8 @@ const CartPage = () => {
                         </div>
                     ))}
                     <button
-                        className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg w-full"
-                        onClick={placeOrder}
+                        onClick={() => router.push("/payment")} // Redirect to payment page
+                        className="flex-1 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
                     >
                         Place Order
                     </button>
